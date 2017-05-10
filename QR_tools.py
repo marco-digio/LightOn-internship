@@ -2,6 +2,9 @@ import numpy as np
 import os
 import RQR
 	
+# synthetic data
+def synthetic_data(m, n, k):
+	return np.dot(np.random.randn(m, k), np.random.randn(k, n))
 
 # QR for different values of m
 def m_qr(mrange, n, k, n_it, er_out = False, p=10, random=False):

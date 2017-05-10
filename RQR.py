@@ -64,7 +64,7 @@ def av_et_QR(A, k, n_it, er_out = False, random = False, abs_val = False):
 
 	for it in range(n_it):
 		#print 'it = ', it
-		_, _, er[it], t_tot[it], t_rp[it] = error_time(A, k, er_out, random, abs_val)
+		_, _, er[it], t_tot[it], t_rp[it] = et_QR(A, k, er_out, random, abs_val)
 	
 	return np.mean(er), np.mean(t_tot), np.mean(t_rp)
 		

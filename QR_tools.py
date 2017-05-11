@@ -123,6 +123,11 @@ def run_k_qr():
 # make three plots
 def plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	
+	try:
+		os.mkdir('plot')
+	except OSError:
+		pass
+	
 	# plot error
 	plt.figure(1)
 	plt.plot(range1, error1, 'r', label = type2, linewidth = 2)
@@ -160,7 +165,7 @@ def plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	
 	
 # read and plot
-def run(type, type2):
+def run_plot(type, type2):
 	# read first file
 	data1 = np.load('data/'+type+'_'+type2+'.npz')
 	range1 = data1[type+'range']
@@ -168,7 +173,7 @@ def run(type, type2):
 	t1 = data1['t_tot']
 
 	# read second file
-	data2 = np.load('data/'+type+'_randomized_'+type2+'.npz')
+	data2 = np.load('data/'+type+'_r'+type2+'.npz')
 	range2 = data2[type+'range']
 	error2 = data2['error']
 	t2 = data2['t_tot']
@@ -176,4 +181,6 @@ def run(type, type2):
 
 	# plot
 	plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2)
-	
+
+     
+     

@@ -8,7 +8,7 @@ import scipy.linalg.interpolative as sli
 def rNMF(A, r, k):	
 	# random projection
 	t_in = time.clock()
-	Y = np.abs(np.dot(A, np.random.randn(np.shape(A)[1], k)))
+	Y = np.abs(np.dot(np.random.randn(k, np.shape(A)[0]), A))
 	t_RP = time.clock() - t_in
 
 	# algorithm

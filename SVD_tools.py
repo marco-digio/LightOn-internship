@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-import RQR
+import RSVD
 
 	
 # synthetic data
@@ -9,8 +9,8 @@ def synthetic_data(m, n, k):
 	return np.dot(np.random.randn(m, k), np.random.randn(k, n))
 
 
-# QR for different values of m
-def m_svd(mrange, n, k, n_it, er_out = False, p=10, random=False):
+# SVD for different values of m
+def m_svd(mrange, n, k, n_it, er_out=False, random=False):
 	n_m = np.size(mrange)
 	
 	error = np.zeros(n_m)
@@ -21,7 +21,7 @@ def m_svd(mrange, n, k, n_it, er_out = False, p=10, random=False):
 		m = mrange[i]
 		print 'm = ', m
 		A = synthetic_data(m, n, k)
-		error[i], t_tot[i], t_rp[i] = RSVD.av_et_SVD(A, k+p, n_it, er_out, random)
+		error[i], t_tot[i], t_rp[i] = RSVD.av_et_SVD(A, k, n_it, er_out, random)
 		
 	try:
 		os.mkdir('data')
@@ -36,8 +36,8 @@ def m_svd(mrange, n, k, n_it, er_out = False, p=10, random=False):
 		return error, t_tot, t_rp
 	
 	
-# QR for different values of n
-def n_svd(m, nrange, k, n_it, er_out = False, p=10, random=False):
+# SVD for different values of n
+def n_svd(m, nrange, k, n_it, er_out = False, random=False):
 	n_n = np.size(nrange)
 	
 	error = np.zeros(n_n)
@@ -48,7 +48,7 @@ def n_svd(m, nrange, k, n_it, er_out = False, p=10, random=False):
 		n = nrange[i]
 		print 'n = ', n
 		A = synthetic_data(m, n, k)
-		error[i], t_tot[i], t_rp[i] = RSVD.av_et_SVD(A, k+p, n_it, er_out, random)
+		error[i], t_tot[i], t_rp[i] = RSVD.av_et_SVD(A, k, n_it, er_out, random)
 		
 	try:
 		os.mkdir('data')
@@ -63,8 +63,8 @@ def n_svd(m, nrange, k, n_it, er_out = False, p=10, random=False):
 		return error, t_tot, t_rp
 
 
-# QR for different values of k
-def k_svd(m, n, krange, n_it, er_out = False, p=10, random = False):
+# SVD for different values of k
+def k_svd(m, n, krange, n_it, er_out = False, random = False):
 	n_k = np.size(krange)
 	
 	error = np.zeros(n_k)
@@ -75,7 +75,7 @@ def k_svd(m, n, krange, n_it, er_out = False, p=10, random = False):
 		k = krange[i]
 		print 'k = ', k
 		A = synthetic_data(m, n, k)
-		error[i], t_tot[i], t_rp[i]  = RSVD.av_et_SVD(A, k+p, n_it, er_out, random)
+		error[i], t_tot[i], t_rp[i]  = RSVD.av_et_SVD(A, k, n_it, er_out, random)
 			
 	try:
 		os.mkdir('data')
@@ -97,7 +97,7 @@ def run_m_svd():
 	k = 100
 	n_it = 10
 	error1, t1 = m_svd(mrange, n, k, n_it, er_out=True, random=False)
-	error2, t2, t_rp = m_svd(m, n, krange, n_it, er_out=True, random=True)
+	error2, t2, t_rp = m_svd(mrange, n, k, n_it, er_out=True, random=True)
 
 
 # test run changing n

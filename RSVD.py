@@ -40,14 +40,14 @@ def et_SVD(A, k, er_out = False, random = False, abs_val = False):
 
 	t_in = time.clock()
 	if random == False:
-		U, s, V = LA.qr(A)
+		U, s, V = LA.svd(A)
 		S = np.diag(s)
 		U = U[:, 0:k]
 		S = S[0:k, 0:k]
 		V = V[0:k, :]
 		t_RP = 0
 	else:
-		U, S, V, t_RP = rQR(A, k, abs_val)
+		U, S, V, t_RP = rSVD(A, k, abs_val)
 	t = time.clock() - t_in
 	
 	if (er_out == False):

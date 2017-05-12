@@ -1,7 +1,6 @@
 import numpy as np
 import scipy.linalg as LA
 import time
-import scipy.linalg.interpolative as sli
 
 
 # Randomized NMF decomposition. A = WH

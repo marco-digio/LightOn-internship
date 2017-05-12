@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-import RQR
+import RNMF
 
 	
 # synthetic data
@@ -12,6 +12,8 @@ def create_data(m, n, j = 100, sigma = 0.1):
 	A = np.abs(np.dot(X, Y) + N);
 	return A
 	
+
+# another kind of synthetic data
 def create_data2(m, n, k):
 	A = np.abs(np.dot(np.random.random((m, k)), np.random.random((k, n)));
 	return A
@@ -120,43 +122,23 @@ def k_qr(m, n, r, n_it, krange, er_out = False):
 
 
 # test run changing m
-def run_m_nmf():
-	mrange = np.arange(200, 1000, 100)
-	n = 2000
-	r = 10
-	k = 100
-	n_it = 10
-	error1, t1 = m_nmf(mrange, n, r, n_it, k=0, er_out=True)
+def run_m_nmf(mrange, n, r, k, n_it):
+        error1, t1 = m_nmf(mrange, n, r, n_it, k=0, er_out=True)
 	error2, t2, t_rp = m_nmf(mrange, n, r, n_it, k, er_out=True)
-
+        
 
 # test run changing n
-def run_n_nmf():
-	m = 500
-	nrange = np.arange(200, 1000, 100)
-	r = 10
-	k = 100
-	n_it = 10
+def run_n_nmf(m, nrange, r, k, n_it):
 	error1, t1 = n_nmf(m, nrange, r, n_it, k=0, er_out=True)
 	error2, t2, t_rp = n_nmf(m, nrange, r, n_it, k, er_out=True)
 
 # test run changing k
-def run_r_nmf():
-	m = 1500
-	n = 2500
-	rrange = np.arange(110, 580, 100)
-	k = 100
-	n_it = 10
+def run_r_nmf(m, n, rrange, k, n_it):
 	error1, t1 = r_nmf(m, n, rrange, n_it, k=0, er_out=True)
 	error2, t2, t_rp = r_nmf(m, n, rrange, n_it, k, er_out=True)
 
 # test run changing k
-def run_k_nmf():
-	m = 1500
-	n = 2500
-	r = 10
-	krange = np.arange(110, 580, 100)
-	n_it = 10
+def run_k_nmf(m, n, r, krange, n_it):
 	error1, t1, _ = RQR.av_et_NMF(synthetic_data(m, n), r, n_it, k=0, er_out=True)
 	error2, t2, t_rp = r_nmf(m, n, rrange, n_it, k, er_out=True)
 	
@@ -221,7 +203,7 @@ def run_plot(type, type2):
 	t_rp = data2['t_rp']
 
 	# plot
-	plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2)
+	plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type, type2)
 
      
      

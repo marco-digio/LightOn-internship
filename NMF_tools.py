@@ -148,7 +148,6 @@ def run_r_nmf(m, n, rrange, k, n_it):
 
 # test run changing k
 def run_k_nmf(m, n, r, krange, n_it):
-	#error1, t1, _ = RNMF.av_et_NMF(synthetic_data(m, n), r, n_it, k=0, er_out=True)
         error1, t1, _ = k_nmf(m, n, r, n_it, krange, er_out=True, random=True)
 	error2, t2, t_rp = k_nmf(m, n, r, n_it, krange, er_out=True)
 	

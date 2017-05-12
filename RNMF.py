@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.linalg as LA
 import time
-
+from sklearn.decomposition import nmf
 
 # Randomized NMF decomposition. A = WH
 def rNMF(A, r, k):	

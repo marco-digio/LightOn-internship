@@ -5,7 +5,7 @@ import RNMF
 
 	
 # synthetic data
-def create_data(m, n, j = 100, sigma = 0.1):
+def synthetic_data(m, n, j = 100, sigma = 0.1):
 	X = np.random.random((m, j));
 	Y = np.random.random((j, n));
 	N = np.random.normal(0, sigma, (m, n));
@@ -14,8 +14,8 @@ def create_data(m, n, j = 100, sigma = 0.1):
 	
 
 # another kind of synthetic data
-def create_data2(m, n, k):
-	A = np.abs(np.dot(np.random.random((m, k)), np.random.random((k, n)));
+def synthetic_data2(m, n, k):
+	A = np.abs(np.dot(np.random.random((m, k)), np.random.random((k, n))))
 	return A
 
 
@@ -58,7 +58,7 @@ def n_nmf(m, nrange, r, n_it, k=0, er_out = False):
 		n = nrange[i]
 		print 'n = ', n
 		A = synthetic_data(m, n)
-		error[i], t_tot[i], t_rp[i] = RQR.av_et_NMF(A, r, n_it, k, er_out)
+		error[i], t_tot[i], t_rp[i] = RNMF.av_et_NMF(A, r, n_it, k, er_out)
 		
 	try:
 		os.mkdir('data')
@@ -84,7 +84,7 @@ def r_nmf(m, n, rrange, n_it, k=0, er_out = False):
 		r = rrange[i]
 		print 'r = ', r
 		A = synthetic_data(m, n)
-		error[i], t_tot[i], t_rp[i] = RQR.av_et_NMF(A, r, n_it, k, er_out)
+		error[i], t_tot[i], t_rp[i] = RNMF.av_et_NMF(A, r, n_it, k, er_out)
 		
 	try:
 		os.mkdir('data')
@@ -98,27 +98,36 @@ def r_nmf(m, n, rrange, n_it, k=0, er_out = False):
 		np.savez('data/r_rnmf.npz', rrange=rrange, error=error, t_tot=t_tot, t_rp=t_rp)
 		return error, t_tot, t_rp
 
-# QR for different values of k
-def k_qr(m, n, r, n_it, krange, er_out = False):
-	n_k = np.size(krange)
+# NMF for different values of k
+def k_nmf(m, n, r, n_it, krange, er_out = False, random=True):
+        if random==False:
+            error, t_tot, _ = RNMF.av_et_NMF(synthetic_data(m, n), r, n_it, k=0, er_out=True)
+        else:
+	    n_k = np.size(krange)
 	
-	error = np.zeros(n_k)
-	t_tot = np.zeros(n_k)
-	t_rp  = np.zeros(n_k)
+            error = np.zeros(n_k)
+	    t_tot = np.zeros(n_k)
+	    t_rp  = np.zeros(n_k)
 	
-	for i in range(n_k):
-		k = krange[i]
+	    for i in range(n_k):
+	        k = krange[i]
 		print 'k = ', k
 		A = synthetic_data(m, n)
-		error[i], t_tot[i], t_rp[i]  = RQR.av_et_NMF(A, r, n_it, k, er_out)
+		error[i], t_tot[i], t_rp[i]  = RNMF.av_et_NMF(A, r, n_it, k, er_out)
 			
-	try:
-		os.mkdir('data')
+        try:
+	    	os.mkdir('data')
 	except OSError:
-		pass			
-	
-	np.savez('data/k_rqr.npz', krange=krange, error=error, t_tot=t_tot, t_rp=t_rp)
-	return error, t_tot, t_rp
+		pass	
+
+        if random==False:
+            np.savez('data/k_nmf.npz', krange=krange,
+                    error=np.ones(np.size(krange))*error,
+                    t_tot=np.ones(np.size(krange))*t_tot)
+            return error, t_tot
+        else:
+            np.savez('data/k_rnmf.npz', krange=krange, error=error, t_tot=t_tot, t_rp=t_rp)
+	    return error, t_tot, t_rp
 
 
 # test run changing m
@@ -139,8 +148,9 @@ def run_r_nmf(m, n, rrange, k, n_it):
 
 # test run changing k
 def run_k_nmf(m, n, r, krange, n_it):
-	error1, t1, _ = RQR.av_et_NMF(synthetic_data(m, n), r, n_it, k=0, er_out=True)
-	error2, t2, t_rp = r_nmf(m, n, rrange, n_it, k, er_out=True)
+	#error1, t1, _ = RNMF.av_et_NMF(synthetic_data(m, n), r, n_it, k=0, er_out=True)
+        error1, t1, _ = k_nmf(m, n, r, n_it, krange, er_out=True, random=True)
+	error2, t2, t_rp = k_nmf(m, n, r, n_it, krange, er_out=True)
 	
 	
 # make three plots
@@ -184,8 +194,8 @@ def plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	plt.ylim(0, np.max(t_rp/t2) * 1.1)
 	plt.savefig('plot/'+type+'_'+type2+'_ratio.pdf')
 
-	plt.show()
-	
+	#plt.show()
+	plt.close('all')
 	
 # read and plot
 def run_plot(type, type2):

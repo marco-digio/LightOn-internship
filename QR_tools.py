@@ -91,31 +91,19 @@ def k_qr(m, n, krange, n_it, er_out = False, p=10, random = False):
 
 
 # test run changing m
-def run_m_qr():
-	mrange = np.arange(200, 1000, 100)
-	n = 2000
-	k = 100
-	n_it = 10
+def run_m_qr(mrange, n, k, n_it):
 	error1, t1 = m_qr(mrange, n, k, n_it, er_out=True, random=False)
-	error2, t2, t_rp = m_qr(m, n, krange, n_it, er_out=True, random=True)
+	error2, t2, t_rp = m_qr(mrange, n, k, n_it, er_out=True, random=True)
 
 
 # test run changing n
-def run_n_qr():
-	m = 500
-	nrange = np.arange(200, 1000, 100)
-	k = 100
-	n_it = 10
+def run_n_qr(m, nrange, k, n_it):
 	error1, t1 = n_qr(m, nrange, k, n_it, er_out=True, random=False)
 	error2, t2, t_rp = n_qr(m, nrange, k, n_it, er_out=True, random=True)
 
 
 # test run changing k
-def run_k_qr():
-	m = 1500
-	n = 2500
-	krange = np.arange(110, 580, 100)
-	n_it = 10
+def run_k_qr(m, n, krange, n_it):
 	error1, t1 = k_qr(m, n, krange, n_it, er_out=True, random=False)
 	error2, t2, t_rp = k_qr(m, n, krange, n_it, er_out=True, random=True)
 	
@@ -161,7 +149,8 @@ def plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	plt.ylim(0, np.max(t_rp/t2) * 1.1)
 	plt.savefig('plot/'+type+'_'+type2+'_ratio.pdf')
 
-	plt.show()
+	#plt.show()
+        plt.close('all')
 	
 	
 # read and plot

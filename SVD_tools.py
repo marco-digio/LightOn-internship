@@ -91,37 +91,25 @@ def k_svd(m, n, krange, n_it, er_out = False, random = False):
 
 
 # test run changing m
-def run_m_svd():
-	mrange = np.arange(200, 1000, 100)
-	n = 2000
-	k = 100
-	n_it = 10
+def run_m_svd(mrange, n, k, n_it):
 	error1, t1 = m_svd(mrange, n, k, n_it, er_out=True, random=False)
 	error2, t2, t_rp = m_svd(mrange, n, k, n_it, er_out=True, random=True)
 
 
 # test run changing n
-def run_n_svd():
-	m = 500
-	nrange = np.arange(200, 1000, 100)
-	k = 100
-	n_it = 10
+def run_n_svd(m, nrange, k, n_it):
 	error1, t1 = n_svd(m, nrange, k, n_it, er_out=True, random=False)
 	error2, t2, t_rp = n_svd(m, nrange, k, n_it, er_out=True, random=True)
 
 
 # test run changing k
-def run_k_svd():
-	m = 1500
-	n = 2500
-	krange = np.arange(110, 580, 100)
-	n_it = 10
+def run_k_svd(m, n, krange, n_it):
 	error1, t1 = k_svd(m, n, krange, n_it, er_out=True, random=False)
 	error2, t2, t_rp = k_svd(m, n, krange, n_it, er_out=True, random=True)
 	
 	
 # make three plots
-def plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
+def plot_svd(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	
 	try:
 		os.mkdir('plot')
@@ -161,8 +149,8 @@ def plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	plt.ylim(0, np.max(t_rp/t2) * 1.1)
 	plt.savefig('plot/'+type+'_'+type2+'_ratio.pdf')
 
-	plt.show()
-	
+	#plt.show()
+	plt.close('all')
 	
 # read and plot
 def run_plot(type, type2):
@@ -180,7 +168,7 @@ def run_plot(type, type2):
 	t_rp = data2['t_rp']
 
 	# plot
-	plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2)
+	plot_svd(range1, range2, error1, t1, error2, t2, t_rp, type, type2)
 
      
      

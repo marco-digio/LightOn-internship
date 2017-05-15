@@ -88,16 +88,4 @@ def eFt_kmeans(X, k, real, r=0, init=None):
 	F = objective_function(X, predicted, k)
 	return error, F, t, t_RP, predicted
 	
-# Average of error and time for (R)k-means
-def av_eTt_kmeans(X, k, real, n_it, r=0, init=None):
 
-	er = np.zeros(n_it)
-	F = np.zeros(n_it)
-	t_tot = np.zeros(n_it)
-	t_rp = np.zeros(n_it)
-
-	for it in range(n_it):
-		#print 'it = ', it
-		er[it], F[it], t_tot[it], t_rp[it] = eFt_kmeans(X, k, real, r, init)
-	
-	return np.mean(er), np.mean(F), np.mean(t_tot), np.mean(t_rp)

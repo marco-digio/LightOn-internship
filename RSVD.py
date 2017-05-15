@@ -57,18 +57,3 @@ def et_SVD(A, k, er_out = False, random = False, abs_val = False):
 		
 	return U, S, V, error, t, t_RP
 		
-		
-# Average of error and time for (R)SVD decomposition
-def av_et_SVD(A, k, n_it, er_out = False, random = False, abs_val = False):
-
-	er = np.zeros(n_it)
-	t_tot = np.zeros(n_it)
-	t_rp = np.zeros(n_it)
-
-	for it in range(n_it):
-		#print 'it = ', it
-		_, _, _, er[it], t_tot[it], t_rp[it] = et_SVD(A, k, er_out, random, abs_val)
-	
-	return np.mean(er), np.mean(t_tot), np.mean(t_rp)
-		
-		

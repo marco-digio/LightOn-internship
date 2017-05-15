@@ -9,6 +9,21 @@ def synthetic_data(m, n, k):
 	return np.dot(np.random.randn(m, k), np.random.randn(k, n))
 
 
+# Average of error and time for (R)SVD decomposition
+def av_et_SVD(m, n, k, n_it, er_out = False, random = False, abs_val = False):
+
+	er = np.zeros(n_it)
+	t_tot = np.zeros(n_it)
+	t_rp = np.zeros(n_it)
+
+	for it in range(n_it):
+		#print 'it = ', it
+                A = synthetic_data(m, n, k)
+		_, _, _, er[it], t_tot[it], t_rp[it] = RSVD.et_SVD(A, k, er_out, random, abs_val)
+	
+	return np.mean(er), np.mean(t_tot), np.mean(t_rp)
+		
+		
 # SVD for different values of m
 def m_svd(mrange, n, k, n_it, er_out=False, random=False):
 	n_m = np.size(mrange)
@@ -20,8 +35,7 @@ def m_svd(mrange, n, k, n_it, er_out=False, random=False):
 	for i in range(n_m):
 		m = mrange[i]
 		print 'm = ', m
-		A = synthetic_data(m, n, k)
-		error[i], t_tot[i], t_rp[i] = RSVD.av_et_SVD(A, k, n_it, er_out, random)
+		error[i], t_tot[i], t_rp[i] = av_et_SVD(m, n, k, n_it, er_out, random)
 		
 	try:
 		os.mkdir('data')
@@ -47,8 +61,7 @@ def n_svd(m, nrange, k, n_it, er_out = False, random=False):
 	for i in range(n_n):
 		n = nrange[i]
 		print 'n = ', n
-		A = synthetic_data(m, n, k)
-		error[i], t_tot[i], t_rp[i] = RSVD.av_et_SVD(A, k, n_it, er_out, random)
+		error[i], t_tot[i], t_rp[i] = av_et_SVD(m, n, k, n_it, er_out, random)
 		
 	try:
 		os.mkdir('data')
@@ -75,7 +88,7 @@ def k_svd(m, n, krange, n_it, er_out = False, random = False):
 		k = krange[i]
 		print 'k = ', k
 		A = synthetic_data(m, n, k)
-		error[i], t_tot[i], t_rp[i]  = RSVD.av_et_SVD(A, k, n_it, er_out, random)
+		error[i], t_tot[i], t_rp[i]  = av_et_SVD(m, n, k, n_it, er_out, random)
 			
 	try:
 		os.mkdir('data')

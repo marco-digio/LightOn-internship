@@ -43,10 +43,10 @@ def m_svd(mrange, n, k, n_it, er_out=False, random=False):
 		pass
 
 	if random == False:
-		np.savez('data/m_svd.npz', mrange=mrange, error=error, t_tot=t_tot)
+		np.savez('data/svd_m.npz', mrange=mrange, error=error, t_tot=t_tot)
 		return error, t_tot
 	else:
-		np.savez('data/m_rsvd.npz', mrange=mrange, error=error, t_tot=t_tot, t_rp=t_rp)
+		np.savez('data/rsvd_m.npz', mrange=mrange, error=error, t_tot=t_tot, t_rp=t_rp)
 		return error, t_tot, t_rp
 	
 	
@@ -69,10 +69,10 @@ def n_svd(m, nrange, k, n_it, er_out = False, random=False):
 		pass
 
 	if random == False:
-		np.savez('data/n_svd.npz', nrange=nrange, error=error, t_tot=t_tot)
+		np.savez('data/svd_n.npz', nrange=nrange, error=error, t_tot=t_tot)
 		return error, t_tot
 	else:
-		np.savez('data/n_rsvd.npz', nrange=nrange, error=error, t_tot=t_tot, t_rp=t_rp)
+		np.savez('data/rsvd_n.npz', nrange=nrange, error=error, t_tot=t_tot, t_rp=t_rp)
 		return error, t_tot, t_rp
 
 
@@ -96,10 +96,10 @@ def k_svd(m, n, krange, n_it, er_out = False, random = False):
 		pass			
 
 	if random == False:
-		np.savez('data/k_svd.npz', krange=krange, error=error, t_tot=t_tot)
+		np.savez('data/svd_k.npz', krange=krange, error=error, t_tot=t_tot)
 		return error, t_tot
 	else:
-		np.savez('data/k_rsvd.npz', krange=krange, error=error, t_tot=t_tot, t_rp=t_rp)
+		np.savez('data/rsvd_k.npz', krange=krange, error=error, t_tot=t_tot, t_rp=t_rp)
 		return error, t_tot, t_rp
 
 
@@ -138,7 +138,7 @@ def plot_svd(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
 	plt.ylim(0, max([np.max(error1), np.max(error2)]) * 1.1)
-	plt.savefig('plot/'+type1+'_'+type2+'_error.pdf')
+	plt.savefig('plot/'+type2+'_'+type1+'_error.pdf')
 
 	# plot time
 	plt.figure(2)
@@ -150,7 +150,7 @@ def plot_svd(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
 	plt.ylim(0, max([np.max(t1), np.max(t2)]) * 1.1)
-	plt.savefig('plot/'+type1+'_'+type2+'_time.pdf')
+	plt.savefig('plot/'+type2+'_'+type1+'_time.pdf')
 	
 	# plot ratio
 	plt.figure(3)
@@ -160,7 +160,7 @@ def plot_svd(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(range2[0], range2[-1])
 	plt.ylim(0, np.max(t_rp/t2) * 1.1)
-	plt.savefig('plot/'+type1+'_'+type2+'_ratio.pdf')
+	plt.savefig('plot/'+type2+'_'+type1+'_ratio.pdf')
 
 	#plt.show()
 	plt.close('all')
@@ -168,13 +168,13 @@ def plot_svd(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 # read and plot
 def run_plot(type1, type2):
 	# read first file
-	data1 = np.load('data/'+type1+'_'+type2+'.npz')
+	data1 = np.load('data/'+type2+'_'+type1+'.npz')
 	range1 = data1[type1+'range']
 	error1 = data1['error']
 	t1 = data1['t_tot']
 
 	# read second file
-	data2 = np.load('data/'+type1+'_r'+type2+'.npz')
+	data2 = np.load('data/r'+type2+'_'+type1+'.npz')
 	range2 = data2[type1+'range']
 	error2 = data2['error']
 	t2 = data2['t_tot']

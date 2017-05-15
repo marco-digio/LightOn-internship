@@ -43,10 +43,10 @@ def m_qr(mrange, n, k, n_it, er_out = False, random=False):
 		pass
 
 	if random == False:
-		np.savez('data/m_qr.npz', mrange=mrange, error=error, t_tot=t_tot)
+		np.savez('data/qr_m.npz', mrange=mrange, error=error, t_tot=t_tot)
 		return error, t_tot
 	else:
-		np.savez('data/m_rqr.npz', mrange=mrange, error=error, t_tot=t_tot, t_rp=t_rp)
+		np.savez('data/rqr_m.npz', mrange=mrange, error=error, t_tot=t_tot, t_rp=t_rp)
 		return error, t_tot, t_rp
 	
 	
@@ -69,10 +69,10 @@ def n_qr(m, nrange, k, n_it, er_out = False, random=False):
 		pass
 
 	if random == False:
-		np.savez('data/n_qr.npz', nrange=nrange, error=error, t_tot=t_tot)
+		np.savez('data/qr_n.npz', nrange=nrange, error=error, t_tot=t_tot)
 		return error, t_tot
 	else:
-		np.savez('data/n_rqr.npz', nrange=nrange, error=error, t_tot=t_tot, t_rp=t_rp)
+		np.savez('data/rqr_n.npz', nrange=nrange, error=error, t_tot=t_tot, t_rp=t_rp)
 		return error, t_tot, t_rp
 
 
@@ -95,10 +95,10 @@ def k_qr(m, n, krange, n_it, er_out = False, random = False):
 		pass			
 
 	if random == False:
-		np.savez('data/k_qr.npz', krange=krange, error=error, t_tot=t_tot)
+		np.savez('data/qr_k.npz', krange=krange, error=error, t_tot=t_tot)
 		return error, t_tot
 	else:
-		np.savez('data/k_rqr.npz', krange=krange, error=error, t_tot=t_tot, t_rp=t_rp)
+		np.savez('data/rqr_k.npz', krange=krange, error=error, t_tot=t_tot, t_rp=t_rp)
 		return error, t_tot, t_rp
 
 
@@ -121,7 +121,7 @@ def run_k_qr(m, n, krange, n_it):
 	
 	
 # make three plots
-def plot(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
+def plot(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 	
 	try:
 		os.mkdir('plot')
@@ -133,11 +133,11 @@ def plot(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	plt.plot(range1, error1, 'r', label = type2, linewidth = 2)
 	plt.plot(range2, error2, 'b', label = 'Randomized '+type2, linewidth = 2)
 	plt.ylabel('error', fontsize = 20)
-	plt.xlabel(type, fontsize = 20)
+	plt.xlabel(type1, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
 	plt.ylim(0, max([np.max(error1), np.max(error2)]) * 1.1)
-	plt.savefig('plot/'+type+'_'+type2+'_error.pdf')
+	plt.savefig('plot/'+type2+'_'+type1+'_error.pdf')
 
 	# plot time
 	plt.figure(2)
@@ -145,43 +145,43 @@ def plot(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	plt.plot(range2, t2, 'b', label = 'Randomized '+type2, linewidth = 2)
 	plt.plot(range2, t_rp, 'g', label = 'RP', linewidth = 2)
 	plt.ylabel('computational time', fontsize = 20)
-	plt.xlabel(type, fontsize = 20)
+	plt.xlabel(type1, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
 	plt.ylim(0, max([np.max(t1), np.max(t2)]) * 1.1)
-	plt.savefig('plot/'+type+'_'+type2+'_time.pdf')
+	plt.savefig('plot/'+type2+'_'+type1+'_time.pdf')
 	
 	# plot ratio
 	plt.figure(3)
 	plt.plot(range2, t_rp/t2, 'b', label = 'ratio', linewidth = 2)
 	plt.ylabel('ratio', fontsize = 20)
-	plt.xlabel(type, fontsize = 20)
+	plt.xlabel(type1, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(range2[0], range2[-1])
 	plt.ylim(0, np.max(t_rp/t2) * 1.1)
-	plt.savefig('plot/'+type+'_'+type2+'_ratio.pdf')
+	plt.savefig('plot/'+type2+'_'+type1+'_ratio.pdf')
 
 	#plt.show()
         plt.close('all')
 	
 	
 # read and plot
-def run_plot(type, type2):
+def run_plot(type1, type2):
 	# read first file
-	data1 = np.load('data/'+type+'_'+type2+'.npz')
-	range1 = data1[type+'range']
+	data1 = np.load('data/'+type2+'_'+type1+'.npz')
+	range1 = data1[type1+'range']
 	error1 = data1['error']
 	t1 = data1['t_tot']
 
 	# read second file
-	data2 = np.load('data/'+type+'_r'+type2+'.npz')
-	range2 = data2[type+'range']
+	data2 = np.load('data/r'+type2+'_'+type1+'.npz')
+	range2 = data2[type1+'range']
 	error2 = data2['error']
 	t2 = data2['t_tot']
 	t_rp = data2['t_rp']
 
 	# plot
-	plot(range1, range2, error1, t1, error2, t2, t_rp, type, type2)
+	plot(range1, range2, error1, t1, error2, t2, t_rp, type1, type2)
 
      
      

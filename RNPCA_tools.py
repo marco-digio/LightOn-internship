@@ -42,7 +42,7 @@ def run_n(nrange, d, m, n_it):
     except OSError:
         pass
 
-    np.savez('data/n_rnpca.npz', nrange=nrange, error=error, t1=t1, t2=t2,
+    np.savez('data/rnpca_n.npz', nrange=nrange, error=error, t1=t1, t2=t2,
             t_rp=t_rp)
 
 
@@ -65,7 +65,7 @@ def run_d(n, drange, m, n_it):
     except OSError:
         pass
 
-    np.savez('data/d_rnpca.npz', drange=drange, error=error, t1=t1, t2=t2,
+    np.savez('data/rnpca_d.npz', drange=drange, error=error, t1=t1, t2=t2,
             t_rp=t_rp)
 
 
@@ -88,7 +88,7 @@ def run_m(n, d, mrange, n_it):
     except OSError:
         pass
 
-    np.savez('data/m_rnpca.npz', mrange=mrange, error=error, t1=t1, t2=t2,
+    np.savez('data/rnpca_m.npz', mrange=mrange, error=error, t1=t1, t2=t2,
             t_rp=t_rp)
 
 
@@ -105,7 +105,7 @@ def plot(range1, error, t1, t2, t_rp, type1):
     plt.ylabel('error = $|| \hat{K} - K||$', fontsize=20)
     plt.xlabel(type1, fontsize=20)
     plt.legend(loc='best', fontsize=20)
-    plt.savefig('plot/'+type1+'_error.pdf')
+    plt.savefig('plot/rnpca_'+type1+'_error.pdf')
 
     plt.figure(2)
     plt.plot(range1, t1, 'r', label='Kernel', linewidth=2)
@@ -115,21 +115,21 @@ def plot(range1, error, t1, t2, t_rp, type1):
     plt.xlabel(type1, fontsize=20)
     plt.legend(loc='best', fontsize=20)
     plt.ylim(0, max([np.max(t1), np.max(t2)]) * 1.1)
-    plt.savefig('plot/'+type1+'_time.pdf')
+    plt.savefig('plot/rnpca_'+type1+'_time.pdf')
 
     plt.figure(3)
     plt.plot(range1, t_rp/t2, 'b', label='ratio', linewidth=2)
     plt.ylabel('ratio', fontsize=20)
     plt.xlabel(type1, fontsize=20)
     plt.legend(loc='best', fontsize=20)
-    plt.savefig('plot/'+type1+'_ratio.pdf')
+    plt.savefig('plot/rnpca_'+type1+'_ratio.pdf')
     
     plt.close('all')
 
 
 # read file and plot data
 def run_plot(type1):
-    data = np.load('data/'+type1+'_rnpca.npz')
+    data = np.load('data/rnpca_'+type1+'.npz')
     range1 = data[type1+'range']
     error = data['error']
     t1 = data['t1']

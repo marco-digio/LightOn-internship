@@ -153,7 +153,7 @@ def run_k_nmf(m, n, r, krange, n_it):
 	
 	
 # make three plots
-def plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
+def plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 	
 	try:
 		os.mkdir('plot')
@@ -165,54 +165,54 @@ def plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	plt.plot(range1, error1, 'r', label = type2, linewidth = 2)
 	plt.plot(range2, error2, 'b', label = 'Randomized '+type2, linewidth = 2)
 	plt.ylabel('error', fontsize = 20)
-	plt.xlabel(type, fontsize = 20)
+	plt.xlabel(type1, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
 	plt.ylim(0, max([np.max(error1), np.max(error2)]) * 1.1)
-	plt.savefig('plot/'+type+'_'+type2+'_error.pdf')
+	plt.savefig('plot/'+type1+'_'+type2+'_error.pdf')
 
 	# plot time
 	plt.figure(2)
-	plt.plot(range1, t1, 'r', label = type2, linewidth = 2)
+        plt.plot(range1, t1, 'r', label = type2, linewidth = 2)
 	plt.plot(range2, t2, 'b', label = 'Randomized '+type2, linewidth = 2)
 	plt.plot(range2, t_rp, 'g', label = 'RP', linewidth = 2)
 	plt.ylabel('computational time', fontsize = 20)
-	plt.xlabel(type, fontsize = 20)
+	plt.xlabel(type1, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
 	plt.ylim(0, max([np.max(t1), np.max(t2)]) * 1.1)
-	plt.savefig('plot/'+type+'_'+type2+'_time.pdf')
+	plt.savefig('plot/'+type1+'_'+type2+'_time.pdf')
 	
 	# plot ratio
 	plt.figure(3)
 	plt.plot(range2, t_rp/t2, 'b', label = 'ratio', linewidth = 2)
 	plt.ylabel('ratio', fontsize = 20)
-	plt.xlabel('k', fontsize = 20)
+	plt.xlabel(type1, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(range2[0], range2[-1])
 	plt.ylim(0, np.max(t_rp/t2) * 1.1)
-	plt.savefig('plot/'+type+'_'+type2+'_ratio.pdf')
+	plt.savefig('plot/'+type1+'_'+type2+'_ratio.pdf')
 
 	#plt.show()
 	plt.close('all')
 	
 # read and plot
-def run_plot(type, type2):
+def run_plot(type1, type2):
 	# read first file
-	data1 = np.load('data/'+type+'_'+type2+'.npz')
-	range1 = data1[type+'range']
+	data1 = np.load('data/'+type1+'_'+type2+'.npz')
+	range1 = data1[type1+'range']
 	error1 = data1['error']
 	t1 = data1['t_tot']
 
 	# read second file
-	data2 = np.load('data/'+type+'_r'+type2+'.npz')
-	range2 = data2[type+'range']
+	data2 = np.load('data/'+type1+'_r'+type2+'.npz')
+	range2 = data2[type1+'range']
 	error2 = data2['error']
 	t2 = data2['t_tot']
 	t_rp = data2['t_rp']
 
 	# plot
-	plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type, type2)
+	plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type1, type2)
 
      
      

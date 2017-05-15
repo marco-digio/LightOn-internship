@@ -10,7 +10,7 @@ def synthetic_data(m, n, k):
 
 
 # QR for different values of m
-def m_qr(mrange, n, k, n_it, er_out = False, p=10, random=False):
+def m_qr(mrange, n, k, n_it, er_out = False, random=False):
 	n_m = np.size(mrange)
 	
 	error = np.zeros(n_m)
@@ -21,7 +21,7 @@ def m_qr(mrange, n, k, n_it, er_out = False, p=10, random=False):
 		m = mrange[i]
 		print 'm = ', m
 		A = synthetic_data(m, n, k)
-		error[i], t_tot[i], t_rp[i] = RQR.av_et_QR(A, k+p, n_it, er_out, random)
+		error[i], t_tot[i], t_rp[i] = RQR.av_et_QR(A, k, n_it, er_out, random)
 		
 	try:
 		os.mkdir('data')
@@ -37,7 +37,7 @@ def m_qr(mrange, n, k, n_it, er_out = False, p=10, random=False):
 	
 	
 # QR for different values of n
-def n_qr(m, nrange, k, n_it, er_out = False, p=10, random=False):
+def n_qr(m, nrange, k, n_it, er_out = False, random=False):
 	n_n = np.size(nrange)
 	
 	error = np.zeros(n_n)
@@ -48,7 +48,7 @@ def n_qr(m, nrange, k, n_it, er_out = False, p=10, random=False):
 		n = nrange[i]
 		print 'n = ', n
 		A = synthetic_data(m, n, k)
-		error[i], t_tot[i], t_rp[i] = RQR.av_et_QR(A, k+p, n_it, er_out, random)
+		error[i], t_tot[i], t_rp[i] = RQR.av_et_QR(A, k, n_it, er_out, random)
 		
 	try:
 		os.mkdir('data')
@@ -64,7 +64,7 @@ def n_qr(m, nrange, k, n_it, er_out = False, p=10, random=False):
 
 
 # QR for different values of k
-def k_qr(m, n, krange, n_it, er_out = False, p=10, random = False):
+def k_qr(m, n, krange, n_it, er_out = False, random = False):
 	n_k = np.size(krange)
 	
 	error = np.zeros(n_k)
@@ -75,7 +75,7 @@ def k_qr(m, n, krange, n_it, er_out = False, p=10, random = False):
 		k = krange[i]
 		print 'k = ', k
 		A = synthetic_data(m, n, k)
-		error[i], t_tot[i], t_rp[i]  = RQR.av_et_QR(A, k+p, n_it, er_out, random)
+		error[i], t_tot[i], t_rp[i]  = RQR.av_et_QR(A, k, n_it, er_out, random)
 			
 	try:
 		os.mkdir('data')
@@ -109,7 +109,7 @@ def run_k_qr(m, n, krange, n_it):
 	
 	
 # make three plots
-def plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
+def plot(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	
 	try:
 		os.mkdir('plot')
@@ -143,7 +143,7 @@ def plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2):
 	plt.figure(3)
 	plt.plot(range2, t_rp/t2, 'b', label = 'ratio', linewidth = 2)
 	plt.ylabel('ratio', fontsize = 20)
-	plt.xlabel('k', fontsize = 20)
+	plt.xlabel(type, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(range2[0], range2[-1])
 	plt.ylim(0, np.max(t_rp/t2) * 1.1)
@@ -169,7 +169,7 @@ def run_plot(type, type2):
 	t_rp = data2['t_rp']
 
 	# plot
-	plot_q(range1, range2, error1, t1, error2, t2, t_rp, type, type2)
+	plot(range1, range2, error1, t1, error2, t2, t_rp, type, type2)
 
      
      

@@ -4,6 +4,25 @@ import os
 import matplotlib.pyplot as plt
 
 
+# synthetic data (n observations of dimension d
+def synthetic_data(n, d):
+    return np.random.randn(n, d)
+
+
+# average error and time
+def av_et_rnpca(n, d, m, n_it):
+    er   = np.zeros(n_it)
+    t1   = np.zeros(n_it)
+    t2   = np.zeros(n_it)
+    t_rp = np.zeros(n_it)
+
+    for it in range(n_it):
+        A = synthetic_data(n, d)
+        er[it], t1[it], t2[it], t_rp[it] = RNPCA.et_rnpca(A, m)
+
+    return np.mean(er), np.mean(t1), np.mean(t2), np.mean(t_rp)
+
+
 # change n and perform RNPCA
 def run_n(nrange, d, m, n_it):
     n_n = np.size(nrange)
@@ -16,7 +35,7 @@ def run_n(nrange, d, m, n_it):
     for i in range(n_n):
         n = nrange[i]
         print 'n = ', n
-        error[i], t1[i], t2[i], t_rp[i] = RNPCA.av_et_rnpca(n, d, m, n_it)
+        error[i], t1[i], t2[i], t_rp[i] = av_et_rnpca(n, d, m, n_it)
     
     try:
         os.mkdir('data')

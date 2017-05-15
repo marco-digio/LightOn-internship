@@ -3,11 +3,6 @@ import numpy.linalg as LA
 import time
 
 
-# synthetic data (n observations of dimension d
-def synthetic_data(n, d):
-    return np.random.randn(n, d)
-
-
 # randomly create the frequencies
 def find_omega(dim, k):
     return np.random.randn(dim, k)
@@ -57,18 +52,4 @@ def et_rnpca(A, m):
     
     error = LA.norm(K1 - K2) #FIXME
     return error, t1, t2, t_rp
-
-
-# average error and time
-def av_et_rnpca(n, d, m, n_it):
-    er   = np.zeros(n_it)
-    t1   = np.zeros(n_it)
-    t2   = np.zeros(n_it)
-    t_rp = np.zeros(n_it)
-
-    for it in range(n_it):
-        A = synthetic_data(n, d)
-        er[it], t1[it], t2[it], t_rp[it] = et_rnpca(A, m)
-
-    return np.mean(er), np.mean(t1), np.mean(t2), np.mean(t_rp)
 

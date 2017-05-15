@@ -58,7 +58,7 @@ def run_d(n, drange, m, n_it):
     for i in range(n_d):
         d = drange[i]
         print 'd = ', d
-        error[i], t1[i], t2[i], t_rp[i] = RNPCA.av_et_rnpca(n, d, m, n_it)
+        error[i], t1[i], t2[i], t_rp[i] = av_et_rnpca(n, d, m, n_it)
     
     try:
         os.mkdir('data')
@@ -81,7 +81,7 @@ def run_m(n, d, mrange, n_it):
     for i in range(n_m):
         m = mrange[i]
         print 'm = ', m
-        error[i], t1[i], t2[i], t_rp[i] = RNPCA.av_et_rnpca(n, d, m, n_it)
+        error[i], t1[i], t2[i], t_rp[i] = av_et_rnpca(n, d, m, n_it)
     
     try:
         os.mkdir('data')

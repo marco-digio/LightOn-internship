@@ -18,6 +18,21 @@ def synthetic_data2(m, n, k):
 	A = np.abs(np.dot(np.random.random((m, k)), np.random.random((k, n))))
 	return A
 
+		
+# Average of error and time for (R)NMF decomposition
+def av_et_NMF(m, n, r, n_it, k=0, er_out=False):
+
+	er = np.zeros(n_it)
+	t_tot = np.zeros(n_it)
+	t_rp = np.zeros(n_it)
+
+	for it in range(n_it):
+		#print 'it = ', it
+                A = synthetic_data(m, n)
+		_, _, er[it], t_tot[it], t_rp[it] = RNMF.et_NMF(A, r, k, er_out)
+	
+	return np.mean(er), np.mean(t_tot), np.mean(t_rp)
+		
 
 # NMF for different values of m
 def m_nmf(mrange, n, r, n_it, k=0, er_out = False):
@@ -30,8 +45,7 @@ def m_nmf(mrange, n, r, n_it, k=0, er_out = False):
 	for i in range(n_m):
 		m = mrange[i]
 		print 'm = ', m
-		A = synthetic_data(m, n)
-		error[i], t_tot[i], t_rp[i] = RNMF.av_et_NMF(A, r, n_it, k, er_out)
+		error[i], t_tot[i], t_rp[i] = av_et_NMF(m, n, r, n_it, k, er_out)
 		
 	try:
 		os.mkdir('data')
@@ -57,8 +71,7 @@ def n_nmf(m, nrange, r, n_it, k=0, er_out = False):
 	for i in range(n_n):
 		n = nrange[i]
 		print 'n = ', n
-		A = synthetic_data(m, n)
-		error[i], t_tot[i], t_rp[i] = RNMF.av_et_NMF(A, r, n_it, k, er_out)
+		error[i], t_tot[i], t_rp[i] = av_et_NMF(m, n, r, n_it, k, er_out)
 		
 	try:
 		os.mkdir('data')
@@ -83,8 +96,7 @@ def r_nmf(m, n, rrange, n_it, k=0, er_out = False):
 	for i in range(n_r):
 		r = rrange[i]
 		print 'r = ', r
-		A = synthetic_data(m, n)
-		error[i], t_tot[i], t_rp[i] = RNMF.av_et_NMF(A, r, n_it, k, er_out)
+		error[i], t_tot[i], t_rp[i] = av_et_NMF(m, n, r, n_it, k, er_out)
 		
 	try:
 		os.mkdir('data')
@@ -101,7 +113,7 @@ def r_nmf(m, n, rrange, n_it, k=0, er_out = False):
 # NMF for different values of k
 def k_nmf(m, n, r, n_it, krange, er_out = False, random=True):
         if random==False:
-            error, t_tot, _ = RNMF.av_et_NMF(synthetic_data(m, n), r, n_it, k=0, er_out=True)
+            error, t_tot, _ = av_et_NMF(m, n, r, n_it, k=0, er_out=True)
         else:
 	    n_k = np.size(krange)
 	
@@ -112,8 +124,7 @@ def k_nmf(m, n, r, n_it, krange, er_out = False, random=True):
 	    for i in range(n_k):
 	        k = krange[i]
 		print 'k = ', k
-		A = synthetic_data(m, n)
-		error[i], t_tot[i], t_rp[i]  = RNMF.av_et_NMF(A, r, n_it, k, er_out)
+		error[i], t_tot[i], t_rp[i]  = av_et_NMF(m, n, r, n_it, k, er_out)
 			
         try:
 	    	os.mkdir('data')

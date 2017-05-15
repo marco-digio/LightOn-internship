@@ -35,18 +35,3 @@ def et_NMF(A, r, k=0, er_out=False):
 		
 	return W, H, error, t, t_RP
 		
-		
-# Average of error and time for (R)NMF decomposition
-def av_et_NMF(A, r, n_it, k=0, er_out=False):
-
-	er = np.zeros(n_it)
-	t_tot = np.zeros(n_it)
-	t_rp = np.zeros(n_it)
-
-	for it in range(n_it):
-		#print 'it = ', it
-		_, _, er[it], t_tot[it], t_rp[it] = et_NMF(A, r, k, er_out)
-	
-	return np.mean(er), np.mean(t_tot), np.mean(t_rp)
-		
-		

@@ -14,7 +14,7 @@ def synthetic_data(k, n, d):
 
 
 # Average of error and time for (R)k-means
-def av_eTt_kmeans(k, n, d, real, n_it, r=0, rand_init=False):
+def av_eFt_kmeans(k, n, d, real, n_it, r=0, rand_init=False):
 
     er = np.zeros(n_it)
     F = np.zeros(n_it)
@@ -29,7 +29,7 @@ def av_eTt_kmeans(k, n, d, real, n_it, r=0, rand_init=False):
         else:
             init=np.arange(0, k, 1)
 
-	er[it], F[it], t_tot[it], t_rp[it] = RKM.eFt_kmeans(X, k, real, r, init)
+	er[it], F[it], t_tot[it], t_rp[it] = RKM.eFt_kmeans(A, k, real, r, init)
 	
     return np.mean(er), np.mean(F), np.mean(t_tot), np.mean(t_rp)
 
@@ -151,25 +151,25 @@ def r_kmeans(k, n, d, rrange, n_it, rand_init=False):
 
 
 # test run changing k
-def run_k_kmeans(krange, n, d, r, n_it, rand_init=False):
+def run_k_kmeans(krange, n, d, r, n_it, rand_init=True):
     error1, F1, t1 = k_kmeans(krange, n, d, r, n_it, rand_init)
     error2, F2, t2, t_rp = k_kmeans(krange, n, d, r, n_it, rand_init)
 
 
 # test run changing n
-def run_n_kmeans(k, nrange, d, r, n_it, rand_init=False):
+def run_n_kmeans(k, nrange, d, r, n_it, rand_init=True):
     error1, F1, t1 = n_kmeans(k, nrange, d, r, n_it, rand_init)
     error2, F2, t2, t_rp = n_kmeans(k, nrange, d, r, n_it, rand_init)
 
 
 # test run changing d
-def run_d_kmeans(k, n, drange, r, n_it, rand_init=False):
+def run_d_kmeans(k, n, drange, r, n_it, rand_init=True):
     error1, F1, t1 = d_kmeans(k, n, drange, r, n_it, rand_init)
     error2, F2, t2, t_rp = d_kmeans(k, n, drange, r, n_it, rand_init)
 
 
 # test run changing r
-def run_r_kmeans(k, n, d, rrange, n_it, rand_init=False):
+def run_r_kmeans(k, n, d, rrange, n_it, rand_init=True):
     error1, F1, t1 = r_kmeans(k, n, d, rrange, n_it, rand_init)
     error2, F2, t2, t_rp = r_kmeans(k, n, d, rrange, n_it, rand_init)
 

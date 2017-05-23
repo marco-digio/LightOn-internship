@@ -5,7 +5,7 @@ import NMF_tools as nmft
 import scipy.io
 
 def real_dataset(name):
-    mat = scipy.io.loadmat('dataset/'+name+'/'+name+'.mat')
+    mat = scipy.io.loadmat('../dataset/'+name+'/'+name+'.mat')
     data = np.asarray(mat[name+'_corrected'])
     data_matrix = np.abs(data.reshape(np.shape(data)[0] * np.shape(data)[1],
                                       np.shape(data)[2]))

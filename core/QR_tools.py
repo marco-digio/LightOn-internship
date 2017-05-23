@@ -130,8 +130,10 @@ def plot(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 	
 	# plot error
 	plt.figure(1)
-	plt.plot(range1, error1, 'r', label = type2, linewidth = 2)
-	plt.plot(range2, error2, 'b', label = 'Randomized '+type2, linewidth = 2)
+	plt.plot(range1, error1, 'r', label = type2, linewidth = 2,
+                marker='o', linestyle='-')
+	plt.plot(range2, error2, 'b', label = 'Randomized '+type2, linewidth = 2,
+                marker='o', linestyle='-')
 	plt.ylabel('error', fontsize = 20)
 	plt.xlabel(type1, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)
@@ -142,9 +144,12 @@ def plot(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 	# plot time
 	plt.figure(2)
 	plt.plot(range1, t1, 'r', label = type2, linewidth = 2)
-	plt.plot(range2, t2, 'b', label = 'Randomized '+type2, linewidth = 2)
-	plt.plot(range2, t_rp, 'g', label = 'RP', linewidth = 2)
-	plt.ylabel('computational time', fontsize = 20)
+	plt.plot(range2, t2, 'b', label = 'Randomized '+type2, linewidth = 2,
+                marker='o', linestyle='-')
+	plt.plot(range2, t_rp, 'g', label = 'RP', linewidth = 2,
+                marker='o', linestyle='-')
+	plt.ylabel('computational time', fontsize = 2,
+                marker='o', linestyle='-')
 	plt.xlabel(type1, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)
 	plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
@@ -153,7 +158,8 @@ def plot(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 	
 	# plot ratio
 	plt.figure(3)
-	plt.plot(range2, t_rp/t2, 'b', label = 'ratio', linewidth = 2)
+	plt.plot(range2, t_rp/t2, 'b', label = 'ratio', linewidth = 2,
+                marker='o', linestyle='-')
 	plt.ylabel('ratio', fontsize = 20)
 	plt.xlabel(type1, fontsize = 20)
 	plt.legend(loc = 'best', fontsize = 20)

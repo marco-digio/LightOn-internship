@@ -38,15 +38,15 @@ def m_qr(mrange, n, k, n_it, er_out=True, random=False):
 	error[i], t_tot[i], t_rp[i] = av_et_QR(m, n, k, n_it, er_out, random)
 		
     try:
-	os.mkdir('data')
+	os.mkdir('../data')
     except OSError:
 	pass
 
     if random == False:
-	np.savez('data/qr_m.npz', mrange=mrange, error=error, t_tot=t_tot)
+	np.savez('../data/qr_m.npz', mrange=mrange, error=error, t_tot=t_tot)
 	return error, t_tot
     else:
-	np.savez('data/rqr_m.npz', mrange=mrange, error=error, t_tot=t_tot, t_rp=t_rp)
+	np.savez('../data/rqr_m.npz', mrange=mrange, error=error, t_tot=t_tot, t_rp=t_rp)
 	return error, t_tot, t_rp
 	
 	
@@ -64,15 +64,15 @@ def n_qr(m, nrange, k, n_it, er_out=True, random=False):
 	error[i], t_tot[i], t_rp[i] = av_et_QR(m, n, k, n_it, er_out, random)
 		
     try:
-    	os.mkdir('data')
+    	os.mkdir('../data')
     except OSError:
     	pass
 
     if random == False:
-	np.savez('data/qr_n.npz', nrange=nrange, error=error, t_tot=t_tot)
+	np.savez('../data/qr_n.npz', nrange=nrange, error=error, t_tot=t_tot)
 	return error, t_tot
     else:
-	np.savez('data/rqr_n.npz', nrange=nrange, error=error, t_tot=t_tot, t_rp=t_rp)
+	np.savez('../data/rqr_n.npz', nrange=nrange, error=error, t_tot=t_tot, t_rp=t_rp)
 	return error, t_tot, t_rp
 
 
@@ -133,7 +133,7 @@ def plot(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
              marker='o', linestyle='-')
     plt.ylabel('computational time', fontsize=2)
     plt.xlabel(type1, fontsize=20)
-    plt.legend(loc = 'best', fontsize=20)
+    plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
     plt.ylim(0, max([np.max(t1), np.max(t2)]) * 1.1)
     plt.savefig('../plot/'+type2+'_'+type1+'_time.pdf')

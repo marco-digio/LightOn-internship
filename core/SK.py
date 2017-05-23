@@ -24,7 +24,8 @@ def estimate_mean_var(X, smallN = 5000, nb_iter = 4, m0 = 500, c = 30):
     	w = draw_freq(mean_var, m0, np.shape(X)[0], 'adapted')
     	R = np.sum(w ** 2, axis = 0)
     	R = R[np.newaxis, :]
-    	sk_ri, _ = emp_sketch(w, x) * np.sqrt(m0)
+    	sk_ri, _ = emp_sketch(w, x)
+        sk_ri *= np.sqrt(m0)
     	sk_dim = np.shape(sk_ri)[0] / 2
     	sk = np.abs(sk_ri[:sk_dim] + sk_ri[sk_dim:] *1j)
 		
@@ -36,8 +37,7 @@ def estimate_mean_var(X, smallN = 5000, nb_iter = 4, m0 = 500, c = 30):
     	    i = np.argmax(sk[k*fr:(k+1)*fr])
 	    val[0, k] = sk[k*fr + i]
 	    RR[0, k] = R[0, k*fr + i]
-	 mean_var = minimize(cost_fit_exp, mean_var, args = (val, RR), 
-			method='TNC', bounds = [(0, None)], jac = True ).x
+	    mean_var = minimize(cost_fit_exp, mean_var, args = (val, RR), method='TNC', bounds = [(0, None)], jac = True ).x
     return mean_var
 	
 

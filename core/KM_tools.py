@@ -50,16 +50,16 @@ def k_kmeans(krange, n, d, r, n_it, rand_init=True):
                                                           r, rand_init)
     
     try:
-        os.mkdir('data')
+        os.mkdir('../data')
     except OSError:
         pass
 
     if r==0:
-        np.savez('data/kmeans_k.npz', krange=krange, error=error, F=F,
+        np.savez('../data/kmeans_k.npz', krange=krange, error=error, F=F,
                 t_tot=t_tot)
         return error, F, t_tot
     else:
-        np.savez('data/rkmeans_k.npz', krange=krange, error=error, F=F,
+        np.savez('../data/rkmeans_k.npz', krange=krange, error=error, F=F,
                 t_tot=t_tot, t_rp=t_rp)
         return error, F, t_tot, t_rp
 
@@ -78,16 +78,16 @@ def n_kmeans(k, nrange, d, r, n_it, rand_init=True):
                                                           r, rand_init)
     
     try:
-        os.mkdir('data')
+        os.mkdir('../data')
     except OSError:
         pass
 
     if r==0:
-        np.savez('data/kmeans_n.npz', nrange=nrange, error=error, F=F,
+        np.savez('../data/kmeans_n.npz', nrange=nrange, error=error, F=F,
                 t_tot=t_tot)
         return error, F, t_tot
     else:
-        np.savez('data/rkmeans_n.npz', nrange=nrange, error=error, F=F,
+        np.savez('../data/rkmeans_n.npz', nrange=nrange, error=error, F=F,
                 t_tot=t_tot, t_rp=t_rp)
         return error, F, t_tot, t_rp
 
@@ -107,16 +107,16 @@ def d_kmeans(k, n, drange, r, n_it, rand_init=True):
                                                           r, rand_init)
     
     try:
-        os.mkdir('data')
+        os.mkdir('../data')
     except OSError:
         pass
 
     if r==0:
-        np.savez('data/kmeans_d.npz', drange=drange, error=error, F=F,
+        np.savez('../data/kmeans_d.npz', drange=drange, error=error, F=F,
                 t_tot=t_tot)
         return error, F, t_tot
     else:
-        np.savez('data/rkmeans_d.npz', drange=drange, error=error, F=F,
+        np.savez('../data/rkmeans_d.npz', drange=drange, error=error, F=F,
                 t_tot=t_tot, t_rp=t_rp)
         return error, F, t_tot, t_rp
 
@@ -141,18 +141,18 @@ def r_kmeans(k, n, d, rrange, n_it, rand_init=True, random_proj=True):
                                                           r, rand_init)
     
     try:
-        os.mkdir('data')
+        os.mkdir('../data')
     except OSError:
         pass
 
     if random_proj==False:
-        np.savez('data/kmeans_r.npz', rrange=rrange, 
+        np.savez('../data/kmeans_r.npz', rrange=rrange, 
                 error=np.ones(np.size(rrange))*error, 
                 F=np.ones(np.size(rrange))*F,
                 t_tot=np.ones(np.size(rrange))*t_tot)
         return error, F, t_tot
     else:
-        np.savez('data/rkmeans_r.npz', rrange=rrange, error=error, F=F,
+        np.savez('../data/rkmeans_r.npz', rrange=rrange, error=error, F=F,
                 t_tot=t_tot, t_rp=t_rp)
         return error, F, t_tot, t_rp
 
@@ -161,7 +161,7 @@ def r_kmeans(k, n, d, rrange, n_it, rand_init=True, random_proj=True):
 def plot_kmeans(range1, range2, error1, F1, t1, error2, F2, t2, t_rp, type1, type2):
 	
     try:
-        os.mkdir('plot')
+        os.mkdir('../plot')
     except OSError:
 	pass
 	
@@ -176,7 +176,7 @@ def plot_kmeans(range1, range2, error1, F1, t1, error2, F2, t2, t_rp, type1, typ
     plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
     plt.ylim(0, max([np.max(error1), np.max(error2)]) * 1.1)
-    plt.savefig('plot/'+type2+'_'+type1+'_error.pdf')
+    plt.savefig('../plot/'+type2+'_'+type1+'_error.pdf')
 
     # plot objective function
     plt.figure(2)
@@ -189,7 +189,7 @@ def plot_kmeans(range1, range2, error1, F1, t1, error2, F2, t2, t_rp, type1, typ
     plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
     plt.ylim(0, max([np.max(F1), np.max(F2)]) * 1.1)
-    plt.savefig('plot/'+type2+'_'+type1+'_F.pdf')
+    plt.savefig('../plot/'+type2+'_'+type1+'_F.pdf')
 
     # plot time
     plt.figure(3)
@@ -204,7 +204,7 @@ def plot_kmeans(range1, range2, error1, F1, t1, error2, F2, t2, t_rp, type1, typ
     plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
     plt.ylim(0, max([np.max(t1), np.max(t2)]) * 1.1)
-    plt.savefig('plot/'+type2+'_'+type1+'_time.pdf')
+    plt.savefig('../plot/'+type2+'_'+type1+'_time.pdf')
 	
     # plot ratio
     plt.figure(4)
@@ -215,7 +215,7 @@ def plot_kmeans(range1, range2, error1, F1, t1, error2, F2, t2, t_rp, type1, typ
     plt.legend(loc='best', fontsize=20)
     plt.xlim(range2[0], range2[-1])
     plt.ylim(0, np.max(t_rp/t2) * 1.1)
-    plt.savefig('plot/'+type2+'_'+type1+'_ratio.pdf')
+    plt.savefig('../plot/'+type2+'_'+type1+'_ratio.pdf')
 
     #plt.show()
     plt.close('all')
@@ -223,7 +223,7 @@ def plot_kmeans(range1, range2, error1, F1, t1, error2, F2, t2, t_rp, type1, typ
 # read and plot
 def run_plot(type1, type2):
     # read first file
-    data1 = np.load('data/'+type2+'_'+type1+'.npz')
+    data1 = np.load('../data/'+type2+'_'+type1+'.npz')
     range1 = data1[type1+'range']
     error1 = data1['error']
     F1 = data1['F']

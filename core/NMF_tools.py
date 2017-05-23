@@ -55,14 +55,14 @@ def m_nmf(name, mrange, n, r, n_it, k=0, er_out=False):
                 er_out=er_out)
 		
     try:
-	os.mkdir('data')
+	os.mkdir('../data')
     except OSError:
 	pass
 
     if k==0:
-    	np.savez('data/nmf_'+name+'_m.npz', mrange=mrange, error=error, t_tot=t_tot)
+    	np.savez('../data/nmf_'+name+'_m.npz', mrange=mrange, error=error, t_tot=t_tot)
     else:
-    	np.savez('data/rnmf_'+name+'_m.npz', mrange=mrange, error=error, t_tot=t_tot, t_rp=t_rp)
+    	np.savez('../data/rnmf_'+name+'_m.npz', mrange=mrange, error=error, t_tot=t_tot, t_rp=t_rp)
 	
 	
 # NMF for different values of n
@@ -80,14 +80,14 @@ def n_nmf(name, m, nrange, r, n_it, k=0, er_out=False):
                 er_out=er_out)
 		
     try:
-	os.mkdir('data')
+	os.mkdir('../data')
     except OSError:
 	pass
 
     if k==0:
-	np.savez('data/nmf_'+name+'_n.npz', nrange=nrange, error=error, t_tot=t_tot)
+	np.savez('../data/nmf_'+name+'_n.npz', nrange=nrange, error=error, t_tot=t_tot)
     else:
-	np.savez('data/rnmf_'+name+'_n.npz', nrange=nrange, error=error, t_tot=t_tot, t_rp=t_rp)
+	np.savez('../data/rnmf_'+name+'_n.npz', nrange=nrange, error=error, t_tot=t_tot, t_rp=t_rp)
 
 # NMF for different values of r
 def r_nmf(name, rrange, n_it, k=0, m=0, n=0, A=None, er_out=False):
@@ -103,15 +103,15 @@ def r_nmf(name, rrange, n_it, k=0, m=0, n=0, A=None, er_out=False):
 		error[i], t_tot[i], t_rp[i] = av_et_NMF(m, n, r, n_it, k, A, er_out)
 		
 	try:
-		os.mkdir('data')
+		os.mkdir('../data')
 	except OSError:
 		pass
 
 	if k==0:
-		np.savez('data/nmf_'+name+'_r.npz', rrange=rrange, error=error, t_tot=t_tot)
+		np.savez('../data/nmf_'+name+'_r.npz', rrange=rrange, error=error, t_tot=t_tot)
 		return error, t_tot
 	else:
-		np.savez('data/rnmf_'+name+'_r.npz', rrange=rrange, error=error, t_tot=t_tot, t_rp=t_rp)
+		np.savez('../data/rnmf_'+name+'_r.npz', rrange=rrange, error=error, t_tot=t_tot, t_rp=t_rp)
 		return error, t_tot, t_rp
 
 # NMF for different values of k
@@ -131,17 +131,17 @@ def k_nmf(name, r, n_it, krange, m=0, n=0, A=None, er_out=False, random_proj=Tru
                 error[i], t_tot[i], t_rp[i]  = av_et_NMF(m, n, r, n_it, k, A, er_out)
 			
         try:
-	    	os.mkdir('data')
+	    	os.mkdir('../data')
 	except OSError:
 		pass	
 
         if random_proj==False:
-            np.savez('data/nmf_'+name+'_k.npz', krange=krange,
+            np.savez('../data/nmf_'+name+'_k.npz', krange=krange,
                     error=np.ones(np.size(krange))*error,
                     t_tot=np.ones(np.size(krange))*t_tot)
             return error, t_tot
         else:
-            np.savez('data/rnmf_'+name+'_k.npz', krange=krange, error=error, t_tot=t_tot, t_rp=t_rp)
+            np.savez('../data/rnmf_'+name+'_k.npz', krange=krange, error=error, t_tot=t_tot, t_rp=t_rp)
 	    return error, t_tot, t_rp
 
 
@@ -150,7 +150,7 @@ def plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
     type2_c = type2[0:3]
 
     try:
-    	os.mkdir('plot')
+    	os.mkdir('../plot')
     except OSError:
     	pass
 	
@@ -165,7 +165,7 @@ def plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
     plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
     #plt.ylim(0, max([np.max(error1), np.max(error2)]) * 1.1)
-    plt.savefig('plot/'+type2+'_'+type1+'_error.pdf')
+    plt.savefig('../plot/'+type2+'_'+type1+'_error.pdf')
 
     # plot time
     plt.figure(2)
@@ -180,7 +180,7 @@ def plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
     plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
     #plt.ylim(0, max([np.max(t1), np.max(t2)]) * 1.1)
-    plt.savefig('plot/'+type2+'_'+type1+'_time.pdf')
+    plt.savefig('../plot/'+type2+'_'+type1+'_time.pdf')
 	
     # plot ratio
     plt.figure(3)
@@ -191,7 +191,7 @@ def plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
     plt.legend(loc='best', fontsize=20)
     plt.xlim(range2[0], range2[-1])
     plt.ylim(0, np.max(t_rp/t2) * 1.1)
-    plt.savefig('plot/'+type2+'_'+type1+'_ratio.pdf')
+    plt.savefig('../plot/'+type2+'_'+type1+'_ratio.pdf')
 
     #plt.show()
     plt.close('all')
@@ -199,7 +199,7 @@ def plot_nmf(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
 # read and plot
 def run_plot(type1, type2):
     # read first file
-    data1 = np.load('data/'+type2+'_'+type1+'.npz')
+    data1 = np.load('../data/'+type2+'_'+type1+'.npz')
     range1 = data1[type1+'range']
     error1 = data1['error']
     t1 = data1['t_tot']

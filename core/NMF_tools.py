@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-import RNMF
+import NMF
 
 	
 # synthetic data
@@ -35,7 +35,7 @@ def av_et_NMF(m=0, n=0, r=0, n_it=0, k=0, A=None, er_out=False):
                 A = synthetic_data(m, n)
             else:
                 print "error: A, m and n = 0"
-    	_, _, er[it], t_tot[it], t_rp[it] = RNMF.et_NMF(A, r, k, er_out)
+    	_, _, er[it], t_tot[it], t_rp[it] = NMF.et_NMF(A, r, k, er_out)
 	
     return np.mean(er), np.mean(t_tot), np.mean(t_rp)
 

@@ -1,4 +1,6 @@
 import numpy as np
+import sys
+sys.path.insert(0, '../core/')
 import NMF_tools as nmft
 import scipy.io
 
@@ -9,41 +11,44 @@ def real_dataset(name):
                                       np.shape(data)[2]))
     return data_matrix
 
+er_out = True
 
 name = 'salinasA'
 A = real_dataset(name)
 
-rrange = np.arange(1, 30, 2)
-k = 300
-n_it = 10
-nmft.r_nmf(name=name, rrange=rrange, n_it=n_it, k=0, A=A, er_out=True)
-nmft.r_nmf(name=name, rrange=rrange, n_it=n_it, k=k, A=A, er_out=True)
-nmft.run_plot('r', 'nmf_'+name)
+rrange = np.arange(1, 20, 2)
+k = 200
+n_it = 3
+nmft.r_nmf(name=name, rrange=rrange, n_it=n_it, k=0, A=A, er_out=er_out)
+nmft.r_nmf(name=name, rrange=rrange, n_it=n_it, k=k, A=A, er_out=er_out)
 
-r = 15
-krange = np.arange(10, 700, 30)
-n_it = 10
-nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, A=A, er_out=True,
+r = 10
+krange = np.arange(10, 400, 30)
+n_it = 3
+nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, A=A, er_out=er_out,
         random_proj=False)
-nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, A=A, er_out=True)
+nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, A=A, er_out=er_out)
+
 nmft.run_plot('k', 'nmf_'+name)
+nmft.run_plot('r', 'nmf_'+name)
 
 
 name = 'indian_pines'
 A = real_dataset(name)
 
-rrange = np.arange(1, 30, 2)
-k = 300
-n_it = 10
-nmft.r_nmf(name=name, rrange=rrange, n_it=n_it, k=0, A=A, er_out=True)
-nmft.r_nmf(name=name, rrange=rrange, n_it=n_it, k=k, A=A, er_out=True)
-nmft.run_plot('r', 'nmf_'+name)
+rrange = np.arange(1, 20, 2)
+k = 200
+n_it = 3
+nmft.r_nmf(name=name, rrange=rrange, n_it=n_it, k=0, A=A, er_out=er_out)
+nmft.r_nmf(name=name, rrange=rrange, n_it=n_it, k=k, A=A, er_out=er_out)
 
-r = 15
-krange = np.arange(10, 700, 30)
-n_it = 10
-nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, A=A, er_out=True,
+r = 10
+krange = np.arange(10, 400, 30)
+n_it = 3
+nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, A=A, er_out=er_out,
         random_proj=False)
-nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, A=A, er_out=True)
+nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, A=A, er_out=er_out)
+
 nmft.run_plot('k', 'nmf_'+name)
+nmft.run_plot('r', 'nmf_'+name)
 

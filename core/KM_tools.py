@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-import RKM
+import KM
 
 	
 # synthetic data
@@ -30,7 +30,7 @@ def av_eFt_kmeans(k, n, d, n_it, r=0, rand_init=True):
         else:
             init=np.arange(0, k, 1)
 
-        er[it], F[it], t_tot[it], t_rp[it], _ = RKM.eFt_kmeans(A, k, real, r, init)
+        er[it], F[it], t_tot[it], t_rp[it], _ = KM.eFt_kmeans(A, k, real, r, init)
 	
     return np.mean(er), np.mean(F), np.mean(t_tot), np.mean(t_rp)
 
@@ -146,8 +146,10 @@ def r_kmeans(k, n, d, rrange, n_it, rand_init=True, random_proj=True):
         pass
 
     if random_proj==False:
-        np.savez('data/kmeans_r.npz', rrange=rrange, error=error, F=F,
-                t_tot=t_tot)
+        np.savez('data/kmeans_r.npz', rrange=rrange, 
+                error=np.ones(np.size(rrange))*error, 
+                F=np.ones(np.size(rrange))*F,
+                t_tot=np.ones(np.size(rrange))*t_tot)
         return error, F, t_tot
     else:
         np.savez('data/rkmeans_r.npz', rrange=rrange, error=error, F=F,
@@ -165,52 +167,52 @@ def plot_kmeans(range1, range2, error1, F1, t1, error2, F2, t2, t_rp, type1, typ
 	
     # plot error
     plt.figure(1)
-    plt.plot(range1, error1, 'r', label = type2, linewidth = 2, marker='o',
+    plt.plot(range1, error1, 'r', label=type2, linewidth=2, marker='o',
             linestyle='-')
-    plt.plot(range2, error2, 'b', label = 'Randomized '+type2, linewidth = 2,
+    plt.plot(range2, error2, 'b', label='Randomized '+type2, linewidth=2,
             marker='o', linestyle='-')
-    plt.ylabel('error', fontsize = 20)
-    plt.xlabel(type1, fontsize = 20)
-    plt.legend(loc = 'best', fontsize = 20)
+    plt.ylabel('error', fontsize=20)
+    plt.xlabel(type1, fontsize=20)
+    plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
     plt.ylim(0, max([np.max(error1), np.max(error2)]) * 1.1)
     plt.savefig('plot/'+type2+'_'+type1+'_error.pdf')
 
     # plot objective function
     plt.figure(2)
-    plt.plot(range1, F1, 'r', label = type2, linewidth = 2, marker='o',
+    plt.plot(range1, F1, 'r', label=type2, linewidth=2, marker='o',
             linestyle='-')
-    plt.plot(range2, F2, 'b', label = 'Randomized '+type2, linewidth = 2,
+    plt.plot(range2, F2, 'b', label='Randomized '+type2, linewidth=2,
             marker='o', linestyle='-')
-    plt.ylabel('objective function', fontsize = 20)
-    plt.xlabel(type1, fontsize = 20)
-    plt.legend(loc = 'best', fontsize = 20)
+    plt.ylabel('objective function', fontsize=20)
+    plt.xlabel(type1, fontsize=20)
+    plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
     plt.ylim(0, max([np.max(F1), np.max(F2)]) * 1.1)
     plt.savefig('plot/'+type2+'_'+type1+'_F.pdf')
 
     # plot time
     plt.figure(3)
-    plt.plot(range1, t1, 'r', label = type2, linewidth = 2, marker='o',
+    plt.plot(range1, t1, 'r', label=type2, linewidth=2, marker='o',
             linestyle='-')
-    plt.plot(range2, t2, 'b', label = 'Randomized '+type2, linewidth = 2,
+    plt.plot(range2, t2, 'b', label='Randomized '+type2, linewidth=2,
             marker='o', linestyle='-')
-    plt.plot(range2, t_rp, 'g', label = 'RP', linewidth = 2, marker='o',
+    plt.plot(range2, t_rp, 'g', label='RP', linewidth=2, marker='o',
             linestyle='-')
-    plt.ylabel('computational time', fontsize = 20)
-    plt.xlabel(type1, fontsize = 20)
-    plt.legend(loc = 'best', fontsize = 20)
+    plt.ylabel('computational time', fontsize=20)
+    plt.xlabel(type1, fontsize=20)
+    plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
     plt.ylim(0, max([np.max(t1), np.max(t2)]) * 1.1)
     plt.savefig('plot/'+type2+'_'+type1+'_time.pdf')
 	
     # plot ratio
     plt.figure(4)
-    plt.plot(range2, t_rp/t2, 'b', label = 'ratio', linewidth = 2, marker='o',
+    plt.plot(range2, t_rp/t2, 'b', label='ratio', linewidth=2, marker='o',
             linestyle='-')
-    plt.ylabel('ratio', fontsize = 20)
-    plt.xlabel(type1, fontsize = 20)
-    plt.legend(loc = 'best', fontsize = 20)
+    plt.ylabel('ratio', fontsize=20)
+    plt.xlabel(type1, fontsize=20)
+    plt.legend(loc='best', fontsize=20)
     plt.xlim(range2[0], range2[-1])
     plt.ylim(0, np.max(t_rp/t2) * 1.1)
     plt.savefig('plot/'+type2+'_'+type1+'_ratio.pdf')

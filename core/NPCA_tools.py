@@ -1,4 +1,4 @@
-import RNPCA
+import NPCA
 import numpy as np
 import os 
 import matplotlib.pyplot as plt
@@ -18,7 +18,7 @@ def av_et_rnpca(n, d, m, n_it):
 
     for it in range(n_it):
         A = synthetic_data(n, d)
-        er[it], t1[it], t2[it], t_rp[it] = RNPCA.et_rnpca(A, m)
+        er[it], t1[it], t2[it], t_rp[it] = NPCA.et_rnpca(A, m)
 
     return np.mean(er), np.mean(t1), np.mean(t2), np.mean(t_rp)
 

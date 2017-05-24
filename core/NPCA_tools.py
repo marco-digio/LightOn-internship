@@ -96,7 +96,7 @@ def run_m(n, d, mrange, n_it):
 def plot(range1, error, t1, t2, t_rp, type1):
     
     try:
-        os.mkdir('plot')
+        os.mkdir('../plot')
     except OSError:
         pass
 

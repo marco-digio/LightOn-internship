@@ -1,5 +1,6 @@
 import numpy as np
 import numpy.linalg as LA
+import time
 
 # Bilateral Random Projection
 def BilateralRP(X, r, corr=False, abs_val=False):
@@ -23,7 +24,7 @@ def BilateralRP(X, r, corr=False, abs_val=False):
         Y2 = np.dot(X.T, A2)
         Y1 = np.dot(X, Y2)
 
-    L = np.dot(Y1, LA.lstsq(np.dot(A2.T, Y1), Y2.T))
+    L = np.dot(Y1, LA.lstsq(np.dot(A2.T, Y1), Y2.T)[0])
     return L, t_rp
 
 

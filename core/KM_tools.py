@@ -230,7 +230,7 @@ def run_plot(type1, type2):
     t1 = data1['t_tot']
 
     # read second file
-    data2 = np.load('data/r'+type2+'_'+type1+'.npz')
+    data2 = np.load('../data/r'+type2+'_'+type1+'.npz')
     range2 = data2[type1+'range']
     error2 = data2['error']
     F2 = data2['F']

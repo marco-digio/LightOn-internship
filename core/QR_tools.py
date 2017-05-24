@@ -25,7 +25,7 @@ def av_et_QR(m, n, k, n_it, er_out=True, random=False, abs_val=False):
 
 
 # QR for different values of m
-def m_qr(mrange, n, k, n_it, er_out=True, random=False):
+def m_qr(mrange, n, k, n_it, er_out=True, random=False, abs_val=False):
     n_m = np.size(mrange)
 	
     error = np.zeros(n_m)
@@ -35,7 +35,7 @@ def m_qr(mrange, n, k, n_it, er_out=True, random=False):
     for i in range(n_m):
 	m = mrange[i]
 	print 'm = ', m
-	error[i], t_tot[i], t_rp[i] = av_et_QR(m, n, k, n_it, er_out, random)
+	error[i], t_tot[i], t_rp[i] = av_et_QR(m, n, k, n_it, er_out, random, abs_val)
 		
     try:
 	os.mkdir('../data')
@@ -51,7 +51,7 @@ def m_qr(mrange, n, k, n_it, er_out=True, random=False):
 	
 	
 # QR for different values of n
-def n_qr(m, nrange, k, n_it, er_out=True, random=False):
+def n_qr(m, nrange, k, n_it, er_out=True, random=False, abs_val=False):
     n_n = np.size(nrange)
 	
     error = np.zeros(n_n)
@@ -61,7 +61,8 @@ def n_qr(m, nrange, k, n_it, er_out=True, random=False):
     for i in range(n_n):
 	n = nrange[i]
 	print 'n = ', n
-	error[i], t_tot[i], t_rp[i] = av_et_QR(m, n, k, n_it, er_out, random)
+	error[i], t_tot[i], t_rp[i] = av_et_QR(m, n, k, n_it, er_out, random,
+                abs_val)
 		
     try:
     	os.mkdir('../data')
@@ -77,7 +78,7 @@ def n_qr(m, nrange, k, n_it, er_out=True, random=False):
 
 
 # QR for different values of k
-def k_qr(m, n, krange, n_it, er_out=True, random=False):
+def k_qr(m, n, krange, n_it, er_out=True, random=False, abs_val=False):
     n_k = np.size(krange)
 	
     error = np.zeros(n_k)
@@ -87,7 +88,8 @@ def k_qr(m, n, krange, n_it, er_out=True, random=False):
     for i in range(n_k):
 	k = krange[i]
 	print 'k = ', k
-	error[i], t_tot[i], t_rp[i]  = av_et_QR(m, n, k, n_it, er_out, random)
+	error[i], t_tot[i], t_rp[i]  = av_et_QR(m, n, k, n_it, er_out, random,
+                abs_val)
 			
     try:
 	os.mkdir('../data')

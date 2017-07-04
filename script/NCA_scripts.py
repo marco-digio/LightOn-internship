@@ -5,6 +5,7 @@ import NPCA_tools as npcat
 
 
 nrange  = np.asarray([1000, 2000, 5000, 10000, 15000]) 
+d 		= 2000
 m       = 500
 n_it    = 3
 npcat.run_n(nrange, d, m, n_it)

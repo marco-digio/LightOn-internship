@@ -4,7 +4,7 @@ sys.path.insert(0, '../core/')
 import NPCA_tools as npcat
 
 
-nrange  = np.asarray([1000, 2000, 5000, 10000, 15000]) 
+nrange  = np.asarray([600, 800, 1000, 1200, 1600, 2000, 3000, 4000]) 
 d 		= 2000
 m       = 500
 n_it    = 3
@@ -12,7 +12,7 @@ npcat.run_n(nrange, d, m, n_it)
 
 
 n       = 2000
-drange  = np.asarray([1000, 2000, 5000, 10000, 15000]) 
+drange  = np.asarray([600, 800, 1000, 1200, 1600, 2000, 3000, 4000]) 
 m       = 500
 n_it    = 3
 npcat.run_d(n, drange, m, n_it)

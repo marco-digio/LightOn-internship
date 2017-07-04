@@ -12,8 +12,7 @@ def id(A, k):
 
 
 # Randomized singular value decomposition	
-def rSVD(A, k, abs_val=False):
-    l = k + 10 # oversampling 
+def rSVD(A, l, abs_val=False):
 	
     # random projection
     t_in = time.clock()
@@ -30,7 +29,20 @@ def rSVD(A, k, abs_val=False):
     V = np.dot(Vt[:l, :], R1)
     S = np.diag(s)[:l, :l]
     return U[:, :l], S, V, t_RP
+
 	
+def rSVD2(A, k, abs_val=False):
+	t_in = time.clock()
+	if (abs_val == False):
+		Y = np.dot(A, np.random.randn(np.shape(A)[1], k))
+	else:
+		Y = np.abs(np.dot(A, np.random.randn(np.shape(A)[1], k)))
+	t_RP = time.clock() - t_in
+
+	Q1, R1 = LA.qr(Y, pivoting=False)
+	#Q1, R1, P1 = LA.qr(Y, pivoting=True)
+	Ut, s, V = LA.svd(np.dot(Q1.T, A))
+	return np.dot(Q1, Ut)[:, :k], np.diag(s)[:k, :k], V[:k, :],t_RP
 
 # Error and time of (R)SVD decomposition.
 # er_out = True calculate the error (it could take some time)

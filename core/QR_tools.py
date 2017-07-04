@@ -21,6 +21,8 @@ def av_et_QR(m, n, k, n_it, er_out=True, random=False, abs_val=False):
 		A = synthetic_data(m, n, k)
 		_, _, er[it], t_tot[it], t_rp[it] = QR.et_QR(A, int(k * 1.1), er_out, random, abs_val)
 	
+	print np.mean(er), np.mean(t_tot)
+	
     return np.mean(er), np.mean(t_tot), np.mean(t_rp)
 
 
@@ -133,7 +135,7 @@ def plot(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
              marker='o', linestyle='-')
     plt.plot(range2, t_rp, 'g', label='RP', linewidth=2,
              marker='o', linestyle='-')
-    plt.ylabel('computational time', fontsize=20)
+    plt.ylabel('computational time (s)', fontsize=20)
     plt.xlabel(type1, fontsize=20)
     plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))

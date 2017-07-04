@@ -21,7 +21,7 @@ def av_et_QR(m, n, k, n_it, er_out=True, random=False, abs_val=False):
 		A = synthetic_data(m, n, k)
 		_, _, er[it], t_tot[it], t_rp[it] = QR.et_QR(A, int(k * 1.1), er_out, random, abs_val)
 	
-	print np.mean(er), np.mean(t_tot)
+    print np.mean(er), np.mean(t_tot)
 	
     return np.mean(er), np.mean(t_tot), np.mean(t_rp)
 

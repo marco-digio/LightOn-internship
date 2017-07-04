@@ -19,6 +19,8 @@ def av_et_BRP(m, n, k, n_it, corr=False, abs_val=False):
         A = synthetic_data(m, n, k)
 	er[it], t_tot[it], t_rp[it] = BRP.et_BRP(A, k, corr, abs_val)
 	
+    print np.mean(er), np.mean(t_tot)
+	
     return np.mean(er), np.mean(t_tot), np.mean(t_rp)
 
 

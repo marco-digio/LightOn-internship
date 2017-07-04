@@ -87,6 +87,7 @@ def eFt_kmeans(X, k, real, r=0, init=None):
 	
     error = misclassification(predicted, real[0])
     F = objective_function(X, predicted, k)
+    print error, F, t
     return error, F, t, t_RP, predicted
 	
 

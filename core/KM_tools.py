@@ -6,7 +6,7 @@ import KM
 	
 # synthetic data
 def synthetic_data(k, n, d):
-    centers = np.random.normal(0, k**(1./d), (d, k))
+    centers = np.random.normal(0, k**(5./d), (d, k))
     sigma = np.sqrt(np.random.uniform(0.25, 1.75, k))
     A = np.random.normal(np.tile(centers, (1, n)), np.tile(sigma, (d, n)))
     label = np.tile(np.arange(0, k, 1), (1, n))

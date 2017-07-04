@@ -111,10 +111,10 @@ def anomalies_det(x_train, x_test, y_train, y_test, dig_in, dig_out, m, type1):
 def plot(Hd, Hs, name):
     
     plt.figure(1)
-    plt.hist(Hs, 50, alpha=0.5, label='same', color='b', normed=True)
-    plt.hist(Hd, 50, alpha=0.5, label='diff', color='r', normed=True)
-    plt.xlabel('distance')
-    plt.ylabel('occurrence normalized')
+    plt.hist(Hs, 50, alpha=0.5, label='normal', color='b', normed=True)
+    plt.hist(Hd, 50, alpha=0.5, label='anomaly', color='r', normed=True)
+    plt.xlabel('distance',fontsize=20)
+    plt.ylabel('occurrence (normalized)',fontsize=20)
     plt.legend(loc='best')
     plt.savefig('../plot/'+name+'.pdf')
     plt.close('all')

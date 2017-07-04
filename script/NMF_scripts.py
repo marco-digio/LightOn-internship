@@ -6,7 +6,7 @@ import NMF_tools as nmft
 name = 'synth'
 er_out = True
 
-mrange  = np.arange(350, 500, 50)
+mrange  = np.asarray([350, 500, 700, 1000, 1300, 1700, 2000, 2500])
 n       = 400
 r       = 10
 k       = 300
@@ -15,7 +15,7 @@ nmft.m_nmf(name=name, mrange=mrange, n=n, r=r, n_it=n_it, k=0, er_out=er_out)
 nmft.m_nmf(name=name, mrange=mrange, n=n, r=r, n_it=n_it, k=k, er_out=er_out)
 
 m       = 400
-nrange  = np.arange(350, 500, 50)
+nrange  = np.asarray([350, 500, 700, 1000, 1300, 1700, 2000, 2500])
 r       = 10
 k       = 300
 n_it    = 3

@@ -18,8 +18,8 @@ def av_et_QR(m, n, k, n_it, er_out=True, random=False, abs_val=False):
 
     for it in range(n_it):
 	#print 'it = ', it
-        A = synthetic_data(m, n, k)
-	_, _, er[it], t_tot[it], t_rp[it] = QR.et_QR(A, k, er_out, random, abs_val)
+		A = synthetic_data(m, n, k)
+		_, _, er[it], t_tot[it], t_rp[it] = QR.et_QR(A, int(k * 1.1), er_out, random, abs_val)
 	
     return np.mean(er), np.mean(t_tot), np.mean(t_rp)
 
@@ -133,7 +133,7 @@ def plot(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
              marker='o', linestyle='-')
     plt.plot(range2, t_rp, 'g', label='RP', linewidth=2,
              marker='o', linestyle='-')
-    plt.ylabel('computational time', fontsize=2)
+    plt.ylabel('computational time', fontsize=20)
     plt.xlabel(type1, fontsize=20)
     plt.legend(loc='best', fontsize=20)
     plt.xlim(min(range1[0], range2[0]), max(range1[-1], range2[-1]))
@@ -144,8 +144,8 @@ def plot(range1, range2, error1, t1, error2, t2, t_rp, type1, type2):
     plt.figure(3)
     plt.plot(range2, t_rp/t2, 'b', label = 'ratio', linewidth=2,
              marker='o', linestyle='-')
-    plt.ylabel('ratio', fontsize = 20)
-    plt.xlabel(type1, fontsize = 20)
+    plt.ylabel('ratio', fontsize=20)
+    plt.xlabel(type1, fontsize=20)
     plt.legend(loc='best', fontsize=20)
     plt.xlim(range2[0], range2[-1])
     plt.ylim(0, np.max(t_rp/t2) * 1.1)

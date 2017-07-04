@@ -66,6 +66,6 @@ def et_QR(A, k, er_out=True, random=False, abs_val=False):
 		error = LA.norm(A[:, P] - np.dot(Q, R))
 		#error = LA.norm(A - np.dot(Q, R))
 	
-	print error, t
+	#print error, t
 	return Q, R, error, t, t_RP
 		

@@ -20,6 +20,8 @@ def av_et_rnpca(n, d, m, n_it):
         A = synthetic_data(n, d)
         er[it], t1[it], t2[it], t_rp[it] = NPCA.et_rnpca(A, m)
 
+    print np.mean(er), np.mean(t1), np.mean(t2)
+
     return np.mean(er), np.mean(t1), np.mean(t2), np.mean(t_rp)
 
 

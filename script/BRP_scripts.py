@@ -8,7 +8,7 @@ abs_val = False
 
 
 # generate data changing m
-mrange  = np.asarray([200, 500, 1000, 2000, 5000, 10000, 15000, 20000]) 
+mrange  = np.asarray([1000, 2000, 5000, 10000, 15000]) 
 n       = 2000
 k       = 500
 n_it    = 3
@@ -17,7 +17,7 @@ brpt.m_brp(mrange, n, k, n_it, corr, abs_val)
 
 # generate data changing n
 m       = 2000
-nrange  = np.asarray([200, 500, 1000, 2000, 5000, 10000, 15000, 20000]) 
+nrange  = np.asarray([1000, 2000, 5000, 10000, 15000]) 
 k       = 500
 n_it    = 3
 brpt.n_brp(m, nrange, k, n_it, corr, abs_val)

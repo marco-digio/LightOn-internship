@@ -28,8 +28,8 @@ n_it    = 2
 #generate data changing k
 m       = 1500
 n       = 1500
-#krange  = np.arange(100, 700, 130)
-krange  = np.asarray([100, 200, 500, 1000, 1400]) 
+krange  = np.arange(100, 700, 130)
+#krange  = np.asarray([100, 200, 500, 1000, 1400]) 
 n_it    = 2
 #qrt.k_qr(m, n, krange, n_it, er_out, random=False)
 #qrt.k_qr(m, n, krange, n_it, er_out, random=True, abs_val=False)
@@ -37,4 +37,4 @@ n_it    = 2
 # plot data
 qrt.run_plot('m', 'qr')
 qrt.run_plot('n', 'qr')
-#qrt.run_plot('k', 'qr')
+qrt.run_plot('k', 'qr')

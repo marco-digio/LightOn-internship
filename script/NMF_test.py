@@ -35,13 +35,13 @@ n       = 400
 r       = 10
 krange  = np.arange(10, 200, 25)
 n_it    = 3
-nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, m=m, n=n, er_out=er_out,
-        random_proj=False)
-nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, m=m, n=n, er_out=er_out)
+#nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, m=m, n=n, er_out=er_out,
+#        random_proj=False)
+#nmft.k_nmf(name=name, r=r, n_it=n_it, krange=krange, m=m, n=n, er_out=er_out)
 
 
 nmft.run_plot('m', 'nmf_'+name)
 nmft.run_plot('n', 'nmf_'+name)
-nmft.run_plot('r', 'nmf_'+name)
-nmft.run_plot('k', 'nmf_'+name)
+#nmft.run_plot('r', 'nmf_'+name)
+#nmft.run_plot('k', 'nmf_'+name)
 

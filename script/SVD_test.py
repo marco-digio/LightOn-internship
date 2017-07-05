@@ -24,9 +24,9 @@ n_it    = 2
 #svdt.n_svd(m, nrange, k, n_it, er_out, random=True)
 
 #generate data changing k
-m       = 1500
-n       = 1500
-krange  = np.arange(110, 600, 70)
+m       = 2000
+n       = 2000
+krange  = np.arange(1800, 100000, 100)
 n_it    = 2
 #svdt.k_svd(m, n, krange, n_it, er_out, random=False)
 #svdt.k_svd(m, n, krange, n_it, er_out, random=True)
